@@ -5,7 +5,7 @@
 Read file:
 - [x] A1. Read everything in the csv file as an array.
 - [x] A2. Read everything in the csv file as a two-dimensional array
-- [ ] B. Read specific lines in the csv file.
+- [x] B. Read specific lines / line in the csv file.
 - [ ] C. Read specific columns in the csv file.
 - [ ] D. Read specific cells in the csv file.
 

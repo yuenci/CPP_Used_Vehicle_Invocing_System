@@ -7,10 +7,6 @@
 #include <codecvt>
 using namespace std;
 
-void printHi() {
-	cout << "Hi" << endl;
-}
-
 vector<string> read_csv(const string& filename) {
     vector<string> data;
     ifstream file(filename, ios::in | ios::binary);
@@ -33,8 +29,12 @@ vector<vector<string>> read_csv_2D(const string& filename) {
 	for (int i = 0; i < data.size(); i++) {
 		vector<string> row;
 		string temp = "";
+		bool quote_start = false;
 		for (int j = 0; j < data[i].size(); j++) {
-			if (data[i][j] == ',') {
+			if (data[i][j] == '"') {
+				quote_start = !quote_start;
+			}
+			else if (data[i][j] == ',' && !quote_start) {
 				row.push_back(temp);
 				temp = "";
 			}
@@ -46,4 +46,45 @@ vector<vector<string>> read_csv_2D(const string& filename) {
 		data_2D.push_back(row);
 	}
 	return data_2D;
+}
+
+/// <summary>
+/// Get lines from CSV
+/// start = 0, get CSV line 2, it's first valid data line in CSV, fir
+/// mode = "2d" -> 2D vector, mode = "1d" -> 1D vector
+/// </summary>
+/// <param name="filename"></param>
+/// <param name="start"></param>
+/// <param name="range"></param>
+/// <param name="mode"></param>
+/// <returns></returns>
+vector<vector<string>> get_lines(const string& filename, int start, int range,string mode ="2d") {
+	if (mode != "2d" && mode != "1d") {
+		cout << "Invalid mode" << endl;
+		throw "Invalid mode";
+	}
+	
+	if (mode == "2d") {
+		vector<vector<string>> data = read_csv_2D(filename);
+		vector<vector<string>> data_2D;
+		for (int i = start; i < start + range; i++) {
+			data_2D.push_back(data[i]);
+		}
+		return data_2D;
+	}
+	else if (mode == "1d") {
+		vector<string> data = read_csv(filename);
+		vector<vector<string>> data_2D;
+		for (int i = start; i < start + range; i++) {
+			vector<string> row;
+			row.push_back(data[i]);
+			data_2D.push_back(row);
+		}
+		return data_2D;
+	}
+}
+
+vector<vector<string>> get_line(const string& filename, int lineNum, string mode = "2d") {
+	vector<vector<string>> data = get_lines(filename, lineNum,  1,mode);
+	return data;
 }
