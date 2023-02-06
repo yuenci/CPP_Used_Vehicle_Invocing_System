@@ -10,19 +10,14 @@ Read file:
 - [X] D. Read specific cells in the csv file.
 
 Write file:
-- [ ] A. Write the data to the csv file.
-- [ ] B. Append data to the end of the csv file.
+- [X] A. Append data to the end of the csv file.
+- [ ] B. Upload line to the csv file.
 - [ ] C. Delete the original data in the csv file.
 - [ ] D. Write data to specific cells.
 
 Sort:
 - [ ] A. Sort the data in the csv file by row.
 - [ ] B. Sort the data in the csv file by column.
-
-
-Filter:
-- [ ] A. Filter the data in the csv file that meets certain criteria.
-- [ ] B. Write the filter results to another csv file.
 
 Inquiry:
 - [ ] A. Query the specific value in the csv file.

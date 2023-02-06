@@ -7,42 +7,74 @@
 #include <codecvt>
 using namespace std;
 
-vector<string> read_csv(const string& filename) {
+/* Read */
+
+vector<string> read_csv(const string& filename,bool keep_header = false) {
     vector<string> data;
     ifstream file(filename, ios::in | ios::binary);
     file.imbue(locale(file.getloc(), new codecvt_utf8<char>));
     string line;
-    bool first_line = true;
-    while (getline(file, line)) {
-        if (first_line) {
-            first_line = false;
-            continue;
-        }
-        data.push_back(line);
-    }
-    return data;
+	if (keep_header) {
+		while (getline(file, line)) {
+			data.push_back(line);
+		}
+		return data;
+	}
+	else {
+		bool first_line = true;
+		while (getline(file, line)) {
+			if (first_line) {
+				first_line = false;
+				continue;
+			}
+			data.push_back(line);
+		}
+		return data;
+	} 
+}
+vector<string> split_string_to_vector(string str, char delimiter) {
+	vector<string> result;
+	string temp = "";
+	bool quote_start = false;
+	for (int i = 0; i < str.size(); i++) {
+		if (str[i] == '"') {
+			quote_start = !quote_start;
+		}
+		else if (str[i] == delimiter && !quote_start) {
+			result.push_back(temp);
+			temp = "";
+		}
+		else {
+			temp += str[i];
+		}
+	}
+	result.push_back(temp);
+	return result;
+}
+
+string join_vector_to_string(const vector<string>& vec, char delimiter = ','){
+	string result = "";
+	for (int i = 0; i < vec.size(); i++) {
+		if (vec[i].find(delimiter) != string::npos) {
+			result += '"';
+			result += vec[i];
+			result += '"';
+		}
+		else {
+			result += vec[i];
+		}
+		if (i != vec.size() - 1) {
+			result += delimiter;
+		}
+	}
+	return result;
 }
 
 vector<vector<string>> read_csv_2D(const string& filename) {
 	vector<string> data = read_csv(filename);
 	vector<vector<string>> data_2D;
 	for (int i = 0; i < data.size(); i++) {
-		vector<string> row;
-		string temp = "";
-		bool quote_start = false;
-		for (int j = 0; j < data[i].size(); j++) {
-			if (data[i][j] == '"') {
-				quote_start = !quote_start;
-			}
-			else if (data[i][j] == ',' && !quote_start) {
-				row.push_back(temp);
-				temp = "";
-			}
-			else {
-				temp += data[i][j];
-			}
-		}
-		row.push_back(temp);
+		vector<string> row = split_string_to_vector(data[i], ',');
 		data_2D.push_back(row);
 	}
 	return data_2D;
@@ -110,3 +142,70 @@ string get_cell(const string& filename, int line, int col) {
 	vector<vector<string>> data = read_csv_2D(filename);
 	return data[line][col];
 }
+
+/* Write */
+
+bool append_csv(const string& filename, vector<string> data) {
+	ofstream file(filename, ios::app | ios::binary);
+	file.imbue(locale(file.getloc(), new codecvt_utf8<char>));
+	if (file.is_open()) {
+		file << join_vector_to_string(data) << endl;
+		file.close();
+		return true;
+	}
+	else {
+		return false;
+	}
+}
+
+// private
+bool write_csv(const string& filename, const vector<string>& data) {
+	ofstream file(filename, ios::binary);
+	file.imbue(locale(file.getloc(), new codecvt_utf8<char>));
+	if (file.is_open()) {
+		for (int i = 0; i < data.size(); i++) {
+			file << data[i] << endl;
+		}
+		file.close();
+		return true;
+	}
+	else {
+		return false;
+	}
+}
+
+bool write_cell(const string& filename, string value, int line, int row)
+{
+	line += 1;
+	vector<string> lines = read_csv(filename);
+	if (line < 0 || line >= lines.size()) {
+		return false;
+	}
+	vector<string> data = split_string_to_vector(lines[line], ',');
+	if (row < 0 || row >= data.size()) {
+		return false;
+	}
+	data[row] = value;
+	lines[line] = join_vector_to_string(data);
+	return write_csv(filename, lines);
+}
+
+bool update_csv(const string& filename, vector<string> data, int line) {
+	line += 1;
+	vector<string> lines = read_csv(filename,true);
+	if (line < 0 || line >= lines.size()) {
+		return false;
+	}
+	lines[line] = join_vector_to_string(data);
+	return write_csv(filename, lines);
+}
+
+bool delete_csv(const string& filename, int line, int range =1 ) {
+	vector<string> lines = read_csv(filename);
+	if (line < 0 || line >= lines.size()) {
+		return false;
+	}
+	lines.erase(lines.begin() + line, lines.begin() + line + range);
+	return write_csv(filename, lines);
+}
+
