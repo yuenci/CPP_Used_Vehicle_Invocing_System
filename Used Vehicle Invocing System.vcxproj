@@ -129,6 +129,16 @@
   <ItemGroup>
     <ClCompile Include="Used Vehicle Invocing System.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="FileHandler.h" />
+    <ClInclude Include="resource.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Used Vehicle Invocing System.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="carlist.csv" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
