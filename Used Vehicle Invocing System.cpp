@@ -1,7 +1,9 @@
 ﻿#include <iostream>
 #include "FileHandler.h"
+using namespace std;
 
 void tests();
+void showMenu();
 void read_csv_test();
 void read_csv_2D_test();
 void get_lines_test();
@@ -16,9 +18,12 @@ void delete_csv_test();
 
 int main()
 {
-    std::cout << "Hello World!\n";
-    tests();
+	int a;
+    cout << "Hello World!\n";
+	//showMenu();
+    //tests();
 }
+
 
 void tests() {
 	//read_csv_test();
@@ -93,3 +98,33 @@ void read_csv_test() {
     cout << data[0] << endl;
 }
 
+void showMenu() {
+	std::vector<std::string> options = { "Option 1", "Option 2", "Option 3", "Quit" };
+
+	std::cout << "请选择你的选项：" << std::endl;
+	for (int i = 0; i < options.size(); i++) {
+		std::cout << i + 1 << ". " << options[i] << std::endl;
+	}
+
+	int choice;
+	std::cin >> choice;
+	
+	system("cls");
+
+	switch (choice) {
+	case 1:
+		std::cout << "你选择了选项 1" << std::endl;
+		break;
+	case 2:
+		std::cout << "你选择了选项 2" << std::endl;
+		break;
+	case 3:
+		std::cout << "你选择了选项 3" << std::endl;
+		break;
+	case 4:
+		exit(0);
+	default:
+		std::cout << "无效选项" << std::endl;
+		break;
+	}
+}
