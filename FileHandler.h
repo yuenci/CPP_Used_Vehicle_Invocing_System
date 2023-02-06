@@ -48,43 +48,65 @@ vector<vector<string>> read_csv_2D(const string& filename) {
 	return data_2D;
 }
 
+int get_lines_num(const string& filename) {
+	vector<string> data = read_csv(filename);
+	return data.size();
+}
+
+int get_cols_num(const string& filename) {
+	vector<vector<string>> data = read_csv_2D(filename);
+	return data[0].size();
+}
+
 /// <summary>
 /// Get lines from CSV
 /// start = 0, get CSV line 2, it's first valid data line in CSV, fir
 /// mode = "2d" -> 2D vector, mode = "1d" -> 1D vector
 /// </summary>
-/// <param name="filename"></param>
-/// <param name="start"></param>
-/// <param name="range"></param>
-/// <param name="mode"></param>
-/// <returns></returns>
-vector<vector<string>> get_lines(const string& filename, int start, int range,string mode ="2d") {
-	if (mode != "2d" && mode != "1d") {
-		cout << "Invalid mode" << endl;
-		throw "Invalid mode";
-	}
-	
-	if (mode == "2d") {
-		vector<vector<string>> data = read_csv_2D(filename);
-		vector<vector<string>> data_2D;
-		for (int i = start; i < start + range; i++) {
-			data_2D.push_back(data[i]);
+vector<vector<string>> get_data(
+	const string& filename,
+	int start,
+	int range,
+	int start_col,
+	int range_col
+) {
+	vector<vector<string>> data = read_csv_2D(filename);
+	vector<vector<string>> data_2D;
+	for (int i = start; i < start + range; i++) {
+		vector<string> row;
+		for (int j = start_col; j < start_col + range_col; j++) {
+			row.push_back(data[i][j]);
 		}
-		return data_2D;
+		data_2D.push_back(row);
 	}
-	else if (mode == "1d") {
-		vector<string> data = read_csv(filename);
-		vector<vector<string>> data_2D;
-		for (int i = start; i < start + range; i++) {
-			vector<string> row;
-			row.push_back(data[i]);
-			data_2D.push_back(row);
-		}
-		return data_2D;
-	}
+	return data_2D;
 }
 
-vector<vector<string>> get_line(const string& filename, int lineNum, string mode = "2d") {
-	vector<vector<string>> data = get_lines(filename, lineNum,  1,mode);
-	return data;
+vector<vector<string>> get_lines(
+	const string& filename,
+	int start,
+	int range
+) {
+	return get_data(filename, start, range, 0, get_cols_num(filename));
+}
+
+vector<vector<string>> get_line(const string& filename, int line) {
+	return get_data(filename, line, 1, 0, get_cols_num(filename));
+}
+
+vector<vector<string>> get_cols(
+	const string& filename,
+	int start,
+	int range
+) {
+	return get_data(filename, 0, get_lines_num(filename), start, range);
+}
+
+vector<vector<string>> get_col(const string& filename, int col) {
+	return get_data(filename, 0, get_lines_num(filename), col, 1);
+}
+
+string get_cell(const string& filename, int line, int col) {
+	vector<vector<string>> data = read_csv_2D(filename);
+	return data[line][col];
 }
