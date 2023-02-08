@@ -25,7 +25,7 @@ void run() {
 		else {
 			Sleep(2000);
 			system("cls");
-			Menu::main_menu();
+			run();
 		}
 		
 	}
@@ -33,7 +33,7 @@ void run() {
 		int about_opt =  Menu::about_page();
 		if (about_opt==1) {
 			system("cls");
-			Menu::main_menu();
+			run();
 		}
 	}
 	else if (opt == 3) {
