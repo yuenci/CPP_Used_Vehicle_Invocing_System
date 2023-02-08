@@ -1,6 +1,9 @@
 #pragma once
 #include <iostream>
 #include <string>
+#include "Authentication.h"
+#include "StatusContainer.h"
+
 using namespace std;
 
 
@@ -160,5 +163,47 @@ int Menu::about_page() {
 }
 
 int Menu::login_page() {
-	cout << 
+	string username;
+	string password;
+
+	cout << "Enter your username: " << endl;
+	while (true)
+	{
+		cout << ">";
+		cin >> username;
+		if (username != "") {
+			break;
+		}
+		else {
+			cout << "Invalid input";
+		}
+	}
+	
+	cout << "Enter your password: " << endl ;
+	while (true)
+	{
+		cout << ">";
+		cin >> password;
+		if (password != "") {
+			break;
+		}
+		else {
+			cout << "Invalid input";
+		}
+	}
+	int login_code = login(username, password);
+	
+	if (login_code == 100) {
+		StatusContainer::current_user = User(username, password);
+	}
+	else if (login_code == 200) {
+		cout << "Can't find user";
+	}
+	else if (login_code == 300) {
+		cout << "Password incorrect";
+	}
+	else if (login_code == 400) {
+		cout << "Unknown error";
+	}
+	return login_code;
 }
