@@ -1,6 +1,8 @@
 #pragma once
 #include "FileHandler.h"
 #include "Authentication.h"
+#include "User.h"
+#include "Menu.h"
 
 void tests();
 void showMenu();
@@ -18,6 +20,8 @@ void delete_csv_test();
 void get_col_num_test();
 void query_test();
 void login_test();
+void user_class_test();
+void menu_class_test();
 
 void tests() {
 	//read_csv_test();
@@ -33,8 +37,22 @@ void tests() {
 	//delete_csv_test();
 	//get_col_num_test();
 	//query_test();
-	login_test();
+	//login_test();
+	//user_class_test();
+	menu_class_test();
 }
+void menu_class_test() {
+	Menu::main_menu();
+}
+
+void user_class_test() {
+	User user =  User("innis1", "111");
+	cout << user.phone << endl;
+	cout << user.login_status << endl;
+	
+}
+
+
 void login_test() {
 	int res = login("innis1", "111");
 	cout << res << endl;

@@ -132,8 +132,11 @@
   <ItemGroup>
     <ClInclude Include="Authentication.h" />
     <ClInclude Include="FileHandler.h" />
+    <ClInclude Include="Menu.h" />
     <ClInclude Include="resource.h" />
+    <ClInclude Include="StatusContainer.h" />
     <ClInclude Include="Test.h" />
+    <ClInclude Include="User.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Used Vehicle Invocing System.rc" />

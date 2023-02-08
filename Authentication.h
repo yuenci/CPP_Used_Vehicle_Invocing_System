@@ -21,7 +21,6 @@ int login(string username, string password) {
 	bool found = false;
 	bool pwd_correct = false;
 	for (int i = 0; i < data.size(); i++) {
-		cout << data[i][USER_Name_ROW] << endl;
 		if (data[i][USER_Name_ROW] == username) {
 			found = true;
 			if (data[i][USER_Password_ROW] == password) {
