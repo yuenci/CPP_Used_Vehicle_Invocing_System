@@ -18,6 +18,9 @@
     <ClCompile Include="Used Vehicle Invocing System.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="services.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="FileHandler.h">
@@ -39,6 +42,9 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="Menu.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Services.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

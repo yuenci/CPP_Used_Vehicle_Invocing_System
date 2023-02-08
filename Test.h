@@ -39,7 +39,7 @@ void tests() {
 	//query_test();
 	//login_test();
 	//user_class_test();
-	menu_class_test();
+	//menu_class_test();
 }
 void menu_class_test() {
 	Menu::main_menu();

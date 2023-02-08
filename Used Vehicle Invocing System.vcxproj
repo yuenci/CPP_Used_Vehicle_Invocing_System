@@ -127,6 +127,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="services.cpp" />
     <ClCompile Include="Used Vehicle Invocing System.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -134,6 +135,7 @@
     <ClInclude Include="FileHandler.h" />
     <ClInclude Include="Menu.h" />
     <ClInclude Include="resource.h" />
+    <ClInclude Include="Services.h" />
     <ClInclude Include="StatusContainer.h" />
     <ClInclude Include="Test.h" />
     <ClInclude Include="User.h" />
