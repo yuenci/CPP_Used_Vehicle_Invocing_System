@@ -87,13 +87,14 @@ int Menu::saleperson_menu() {
 	cout << "3. Create bill receipt" << endl;
 	cout << "4. Book the vehicle" << endl;
 	cout << "5. Manage clients" << endl;
+	cout << "6. Logout" << endl;
 
 
 	while (true)
 	{
 		cout << ">";
 		cin >> input;
-		int res = Menu::valid(input,5);
+		int res = Menu::valid(input,6);
 		if (res != -1) {
 			//cout << "You choose: " << res;
 			return res;
@@ -117,13 +118,14 @@ int Menu::manager_menu() {
 	cout << "2. Create sale invoice" << endl;
 	cout << "3. Create bill receipt" << endl;
 	cout << "4. Produce report" << endl;
+	cout << "5. Logout" << endl;
 
 
 	while (true)
 	{
 		cout << ">";
 		cin >> input;
-		int res = Menu::valid(input, 4);
+		int res = Menu::valid(input, 5);
 		if (res != -1) {
 			//cout << "You choose: " << res;
 			return res;
