@@ -21,7 +21,7 @@ int main()
 	int a;
     cout << "Hello World!\n";
 	//showMenu();
-    //tests();
+    tests();
 }
 
 

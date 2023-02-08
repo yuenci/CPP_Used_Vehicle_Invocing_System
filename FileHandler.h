@@ -192,7 +192,7 @@ bool write_cell(const string& filename, string value, int line, int row)
 
 bool update_csv(const string& filename, vector<string> data, int line) {
 	line += 1;
-	vector<string> lines = read_csv(filename,true);
+	vector<string> lines = read_csv(filename);
 	if (line < 0 || line >= lines.size()) {
 		return false;
 	}
