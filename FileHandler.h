@@ -5,6 +5,8 @@
 #include <vector>
 #include <locale>
 #include <codecvt>
+#include <cstdarg>
+#include <sstream>
 using namespace std;
 
 /* Read */
@@ -32,6 +34,7 @@ vector<string> read_csv(const string& filename,bool keep_header = false) {
 		return data;
 	} 
 }
+
 vector<string> split_string_to_vector(string str, char delimiter) {
 	vector<string> result;
 	string temp = "";
@@ -70,8 +73,8 @@ string join_vector_to_string(const vector<string>& vec, char delimiter = ','){
 	return result;
 }
 
-vector<vector<string>> read_csv_2D(const string& filename) {
-	vector<string> data = read_csv(filename);
+vector<vector<string>> read_csv_2D(const string& filename, bool keep_header = false) {
+	vector<string> data = read_csv(filename, keep_header);
 	vector<vector<string>> data_2D;
 	for (int i = 0; i < data.size(); i++) {
 		vector<string> row = split_string_to_vector(data[i], ',');
@@ -95,13 +98,8 @@ int get_cols_num(const string& filename) {
 /// start = 0, get CSV line 2, it's first valid data line in CSV, fir
 /// mode = "2d" -> 2D vector, mode = "1d" -> 1D vector
 /// </summary>
-vector<vector<string>> get_data(
-	const string& filename,
-	int start,
-	int range,
-	int start_col,
-	int range_col
-) {
+vector<vector<string>> get_data( const string& filename, int start, int range, int start_col, int range_col) 
+{
 	vector<vector<string>> data = read_csv_2D(filename);
 	vector<vector<string>> data_2D;
 	for (int i = start; i < start + range; i++) {
@@ -114,11 +112,7 @@ vector<vector<string>> get_data(
 	return data_2D;
 }
 
-vector<vector<string>> get_lines(
-	const string& filename,
-	int start,
-	int range
-) {
+vector<vector<string>> get_lines( const string& filename, int start, int range ) {
 	return get_data(filename, start, range, 0, get_cols_num(filename));
 }
 
@@ -126,11 +120,8 @@ vector<vector<string>> get_line(const string& filename, int line) {
 	return get_data(filename, line, 1, 0, get_cols_num(filename));
 }
 
-vector<vector<string>> get_cols(
-	const string& filename,
-	int start,
-	int range
-) {
+vector<vector<string>> get_cols( const string& filename, int start, int range ) 
+{
 	return get_data(filename, 0, get_lines_num(filename), start, range);
 }
 
@@ -210,3 +201,110 @@ bool delete_csv(const string& filename, int line, int range =1 ) {
 	return write_csv(filename, lines);
 }
 
+/* sort */
+string toLowerCase(string str) {
+	for (char& c : str) {
+		c = tolower(c);
+	}
+	return str;
+}
+
+bool is_number(const string& data) {
+	for (char c : data) {
+		if (!isdigit(c)) {
+			return false;
+		}
+	}
+	return true;
+}
+
+
+int get_col_num(const string& filename, const string& col_name) {
+	vector<vector<string>> data = read_csv_2D(filename,true);
+	for (int i = 0; i < data[0].size(); i++) {
+		if (toLowerCase(data[0][i]) == toLowerCase(col_name)) {
+			return i;
+		}
+	}
+	return -1;
+}
+
+string data_type_detecter(const string& filename, int col_num) {
+	vector<vector<string>> data = read_csv_2D(filename);
+	string res = "";
+	for (int i = 0; i < data.size(); i++) {
+		try
+		{
+			if (i == 0) {
+				res = is_number(data[0][col_num]) ? "number" : "string";
+			}
+			else {
+				string type = is_number(data[i][col_num]) ? "number" : "string";
+				if (res != type) {
+					throw "Data type is not consistent";
+				}
+			}
+		}
+		catch (const exception&)
+		{
+			continue;
+		}
+		
+	}
+	return res;
+}
+
+
+/* query */
+double toFloat(const string& s) {
+	stringstream ss(s);
+	double result;
+	ss >> result;
+	return result;
+}
+
+
+vector<int> query(const string& filename, string condition[]) {
+	// string condition[] = { "Price", "==", "2250" };
+	vector<vector<string>> data = read_csv_2D(filename);
+	vector<int> res;
+	int col_num = get_col_num(filename, condition[0]);
+	if (col_num == -1) {
+		return res;
+	}
+	for (int i = 0; i < data.size(); i++)
+	{
+		string value = data[i][col_num];
+		if (condition[1] == "==") {
+			if (value == condition[2]) {
+				res.push_back(i);
+			}
+		}
+		else if (condition[1] == "!=") {
+			if (value != condition[2]) {
+				res.push_back(i);
+			}
+		}
+		else if (condition[1] == ">") {
+			if (toFloat(value) > toFloat(condition[2])) {
+				res.push_back(i);
+			}
+		}
+		else if (condition[1] == "<") {
+			if (toFloat(value) < toFloat(condition[2])) {
+				res.push_back(i);
+			}
+		}
+		else if (condition[1] == ">=") {
+			if (toFloat(value) >= toFloat(condition[2])) {
+				res.push_back(i);
+			}
+		}
+		else if (condition[1] == "<=") {
+			if (toFloat(value) <= toFloat(condition[2])) {
+				res.push_back(i);
+			}
+		}
+	}
+	return res;
+}
