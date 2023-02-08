@@ -14,18 +14,24 @@
 //}
 
 void run();
+void go_to_main_menu();
 void go_to_second_menu();
 void go_to_manager_menu();
 void go_to_saleperson_menu();
 void serach_vehicle();
 void create_sale_invoice();
-void create_bill_invoice();
+void create_bill_receipt();
 void book_vehicle();
 void manage_clinets();
 void produce_report();
 void logout();
 
 void run() {
+	//go_to_main_menu();
+	go_to_saleperson_menu();
+}
+
+void go_to_main_menu() {
 	int opt =  Menu::main_menu();
 	system("cls");
 	if (opt == 1) {
@@ -37,7 +43,7 @@ void run() {
 		else {
 			Sleep(2000);
 			system("cls");
-			run();
+			go_to_main_menu();
 		}
 		
 	}
@@ -45,7 +51,7 @@ void run() {
 		int about_opt =  Menu::about_page();
 		if (about_opt==1) {
 			system("cls");
-			run();
+			go_to_main_menu();
 		}
 	}
 	else if (opt == 3) {
@@ -75,7 +81,7 @@ void go_to_manager_menu() {
 		create_sale_invoice();
 	}
 	else if (opt == 3) {
-		create_bill_invoice();
+		create_bill_receipt();
 	}
 	else if (opt == 4) {
 		produce_report();
@@ -87,6 +93,7 @@ void go_to_manager_menu() {
 
 void go_to_saleperson_menu(){
 	int opt =  Menu::saleperson_menu(); 
+	system("cls");
 	if (opt == 1) {
 		serach_vehicle();
 	}
@@ -94,7 +101,7 @@ void go_to_saleperson_menu(){
 		create_sale_invoice();
 	}
 	else if (opt == 3) {
-		create_bill_invoice();
+		create_bill_receipt();
 	}
 	else if (opt == 4) {
 		produce_report();
@@ -108,14 +115,32 @@ void go_to_saleperson_menu(){
 }
 
 void serach_vehicle() {
+	string opt = Menu::serach_vehicle_page();
+	string cond = "";
+	cout << "Enter condition(>1):" << endl << ">";
+	cin >> cond;
+
+	//cout << cond.substr(0, 1) << endl;
+
+	string condition[] = { opt, cond.substr(0, 1), cond.substr(1)};
+	vector<int> res = query("carlist.csv", condition);
 	
+	if (res.size() == 0) {
+		cout << "No result found" << endl;
+	}
+	else {
+		cout << "Result found:" << endl;
+		for (int i = 0; i < res.size(); i++) {
+			cout << res[i] << endl;
+		}
+	}
 }
 
 void create_sale_invoice() {
 	
 }
 
-void create_bill_invoice()
+void create_bill_receipt()
 {
 	
 }
@@ -136,5 +161,5 @@ void produce_report()
 void logout() {
 	system("cls");
 	StatusContainer::current_user = User("", "");
-	run();
+	go_to_main_menu();
 }

@@ -1,6 +1,7 @@
 #pragma once
 #include <iostream>
 #include <string>
+#include <map>
 #include "Authentication.h"
 #include "StatusContainer.h"
 
@@ -14,6 +15,7 @@ public:static int main_menu();
 	  static int manager_menu();
 	  static int about_page();
 	  static int login_page();
+	  static string serach_vehicle_page();
 };
 
 /// <summary>
@@ -208,4 +210,33 @@ int Menu::login_page() {
 		cout << "Unknown error";
 	}
 	return login_code;
+}
+
+
+string Menu::serach_vehicle_page() {
+	string input;
+	
+	map<int, string> opts({
+		{1,"Price"},
+		{2,"Mileage"},
+		{3,"Doors"}
+	});
+
+	cout << "Choose a filter: " << endl;
+	cout << "1. Price" << endl;
+	cout << "2. Mileage" << endl;
+	cout << "3. Doors" << endl;
+	while (true)
+	{
+		cout << ">";
+		cin >> input;
+		int res = Menu::valid(input, 3);
+		if (res != -1) {
+			//cout << "You choose: " << res;
+			return opts[res];
+		}
+		else {
+			cout << "Invalid Input" << endl;
+		}
+	}
 }
