@@ -26,6 +26,12 @@
     <ClInclude Include="resource.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="Test.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Authentication.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Used Vehicle Invocing System.rc">
@@ -37,6 +43,9 @@
       <Filter>资源文件</Filter>
     </None>
     <None Include="carlist.csv">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="users.csv">
       <Filter>资源文件</Filter>
     </None>
   </ItemGroup>

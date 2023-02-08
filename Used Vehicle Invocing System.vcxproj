@@ -130,8 +130,10 @@
     <ClCompile Include="Used Vehicle Invocing System.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Authentication.h" />
     <ClInclude Include="FileHandler.h" />
     <ClInclude Include="resource.h" />
+    <ClInclude Include="Test.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Used Vehicle Invocing System.rc" />
@@ -139,6 +141,7 @@
   <ItemGroup>
     <None Include="carlist.csv" />
     <None Include="README.md" />
+    <None Include="users.csv" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

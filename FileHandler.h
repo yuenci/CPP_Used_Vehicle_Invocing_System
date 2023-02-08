@@ -15,6 +15,10 @@ vector<string> read_csv(const string& filename,bool keep_header = false) {
     vector<string> data;
     ifstream file(filename, ios::in | ios::binary);
     //file.imbue(locale(file.getloc(), new codecvt_utf8<char>));
+	if (!file) {
+		cerr << "Error: unable to open file!" << std::endl;
+		throw exception("Error: unable to open file!");
+	}
     string line;
 	if (keep_header) {
 		while (getline(file, line)) {
@@ -229,30 +233,6 @@ int get_col_num(const string& filename, const string& col_name) {
 	return -1;
 }
 
-string data_type_detecter(const string& filename, int col_num) {
-	vector<vector<string>> data = read_csv_2D(filename);
-	string res = "";
-	for (int i = 0; i < data.size(); i++) {
-		try
-		{
-			if (i == 0) {
-				res = is_number(data[0][col_num]) ? "number" : "string";
-			}
-			else {
-				string type = is_number(data[i][col_num]) ? "number" : "string";
-				if (res != type) {
-					throw "Data type is not consistent";
-				}
-			}
-		}
-		catch (const exception&)
-		{
-			continue;
-		}
-		
-	}
-	return res;
-}
 
 
 /* query */
