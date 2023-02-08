@@ -34,8 +34,8 @@ void tests() {
 	//get_col_test;
 	//get_cell_test();
 	//append_csv_test();
-	update_csv_test();
-	//write_cell_test();
+	//update_csv_test();
+	write_cell_test();
 	//delete_csv_test();
 }
 

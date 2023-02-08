@@ -12,7 +12,7 @@ using namespace std;
 vector<string> read_csv(const string& filename,bool keep_header = false) {
     vector<string> data;
     ifstream file(filename, ios::in | ios::binary);
-    file.imbue(locale(file.getloc(), new codecvt_utf8<char>));
+    //file.imbue(locale(file.getloc(), new codecvt_utf8<char>));
     string line;
 	if (keep_header) {
 		while (getline(file, line)) {
@@ -161,7 +161,7 @@ bool append_csv(const string& filename, vector<string> data) {
 // private
 bool write_csv(const string& filename, const vector<string>& data) {
 	ofstream file(filename, ios::binary);
-	file.imbue(locale(file.getloc(), new codecvt_utf8<char>));
+	//file.imbue(locale(file.getloc(), new codecvt_utf8<char>));
 	if (file.is_open()) {
 		for (int i = 0; i < data.size(); i++) {
 			file << data[i] << endl;
@@ -177,7 +177,7 @@ bool write_csv(const string& filename, const vector<string>& data) {
 bool write_cell(const string& filename, string value, int line, int row)
 {
 	line += 1;
-	vector<string> lines = read_csv(filename);
+	vector<string> lines = read_csv(filename, true);
 	if (line < 0 || line >= lines.size()) {
 		return false;
 	}
@@ -192,7 +192,7 @@ bool write_cell(const string& filename, string value, int line, int row)
 
 bool update_csv(const string& filename, vector<string> data, int line) {
 	line += 1;
-	vector<string> lines = read_csv(filename);
+	vector<string> lines = read_csv(filename,true);
 	if (line < 0 || line >= lines.size()) {
 		return false;
 	}
@@ -201,7 +201,8 @@ bool update_csv(const string& filename, vector<string> data, int line) {
 }
 
 bool delete_csv(const string& filename, int line, int range =1 ) {
-	vector<string> lines = read_csv(filename);
+	line += 1;
+	vector<string> lines = read_csv(filename, true);
 	if (line < 0 || line >= lines.size()) {
 		return false;
 	}
