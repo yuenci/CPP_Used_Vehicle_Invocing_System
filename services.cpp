@@ -36,7 +36,8 @@ void run() {
 	//showForm();
 	//create_sale_invoice();
 	//create_bill_receipt();
-	book_vehicle();
+	//book_vehicle();
+	manage_clinets();
 }
 
 void go_to_main_menu() {
@@ -246,6 +247,18 @@ void book_vehicle() {
 
 void manage_clinets()
 {
+	vector<string> res = Menu::manage_clinets_page();
+
+	vector<string> client = vector<string>({
+		res[0],"client",res[1],res[2]
+		});
+	bool append_res=  append_line("users.csv", client);
+	if (append_res) {
+		Console::success("Client added successfully");
+		Sleep(SLEEP_TIME);
+		go_to_second_menu();
+	}
+	
 }
 
 void produce_report()

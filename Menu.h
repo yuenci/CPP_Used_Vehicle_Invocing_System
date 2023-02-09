@@ -21,6 +21,7 @@ public:static int main_menu();
 	  static string serach_vehicle_page();
 	  static int back_to_previous_page();
 	  static vector<string> sale_invoice_page();
+	  static vector<string> manage_clinets_page();
 };
 
 /// <summary>
@@ -217,7 +218,6 @@ int Menu::login_page() {
 	return login_code;
 }
 
-
 string Menu::serach_vehicle_page() {
 	string input;
 	
@@ -290,4 +290,51 @@ vector<string> Menu::sale_invoice_page() {
 	string time = get_now();
 	
 	return vector<string>({ trade_id, input,time });
+}
+
+vector<string> Menu::manage_clinets_page() {
+	string username = "";
+	string password = "";
+	string phone = "";
+
+	cout << "Enter username: " << endl ;
+	while (true)
+	{
+		cout << ">";
+		cin >> username;
+		if (username.length() < 6) {
+			Console::warning("Username must be at least 6 characters");
+		}
+		else {
+			break;
+		}
+	}
+
+	cout << "Enter password: " << endl;
+	while (true)
+	{
+		cout << ">";
+		cin >> password;
+		if (password.length() < 8) {
+			Console::warning("Password must be at least 8 characters");
+		}
+		else {
+			break;
+		}
+	}
+
+	cout << "Enter phone: " << endl;
+	while (true)
+	{
+		cout << ">";
+		cin >> phone;
+		if (phone.length() != 11) {
+			Console::warning("Phone must be 11 characters");
+		}
+		else {
+			break;
+		}
+	}
+
+	return vector<string>({ username, password, phone });
 }
