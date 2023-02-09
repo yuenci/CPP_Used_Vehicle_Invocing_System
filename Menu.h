@@ -269,19 +269,20 @@ int Menu::back_to_previous_page() {
 vector<string> Menu::sale_invoice_page() {
 	
 	cout << "Enter the vehicle ID: " << endl;
-	string input;
+	string input ="";
 	int vehicle_id;
 
 	while (true) {
 		cout << ">";
-		std::getline(std::cin, input);
+		//std::getline(std::cin, input);
+		cin >> input;
 		std::stringstream ss(input);
 
 		if (ss >> vehicle_id) {
 			break;
 		}
 		else {
-			std::cout << "Invalid value" << std::endl;
+			Console::warning("Incorrect input, please try again");
 			ss.clear();
 		}
 	}
