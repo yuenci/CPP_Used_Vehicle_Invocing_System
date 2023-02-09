@@ -104,7 +104,7 @@ void get_cell_test() {
 }
 
 void get_col_test() {
-	vector<vector<string>> data = get_col("carlist.csv", 0);
+	vector<string> data = get_col("carlist.csv", 0);
 	cout << data[0][0] << endl;
 }
 
@@ -114,8 +114,8 @@ void get_cols_test() {
 }
 
 void get_line_test() {
-	vector<vector<string>> data = get_line("carlist.csv", 1);
-	cout << data[0][2] << endl;
+	vector<string> data = get_line("carlist.csv", 1);
+	cout << data[2] << endl;
 }
 
 void get_lines_test() {

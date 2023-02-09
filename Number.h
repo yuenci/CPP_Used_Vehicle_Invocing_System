@@ -30,3 +30,12 @@ int string_to_number(string str) {
 	ss >> number;
 	return number;
 }
+
+//bool is_number(const string& data) {
+//	for (char c : data) {
+//		if (!isdigit(c)) {
+//			return false;
+//		}
+//	}
+//	return true;
+//}

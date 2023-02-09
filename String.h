@@ -16,3 +16,10 @@ std::string zfill(int data, int length, char fill = '0') {
     ss << std::setfill(fill) << std::setw(length) << data;
     return ss.str();
 }
+
+//string toLowerCase(string str) {
+//    for (char& c : str) {
+//        c = tolower(c);
+//    }
+//    return str;
+//}
