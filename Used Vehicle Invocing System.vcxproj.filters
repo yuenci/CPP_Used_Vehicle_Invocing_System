@@ -59,6 +59,9 @@
     <ClInclude Include="Console.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="Number.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Used Vehicle Invocing System.rc">

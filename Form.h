@@ -129,3 +129,35 @@ int show_invoice(vector<string> data,string type = "invoice"){
     cout << divider << endl;
     return 1;
 }
+
+
+int show_sale_report(vector<float> data) {
+    int len = 20;
+	string divider = "";
+	for (int i = 0; i < len; i++)
+	{
+		divider += SIGN;
+	}
+	cout << center_print("Sale Report", SIGN, len) << endl;
+	cout << divider << endl;
+
+	cout << setiosflags(ios::left)
+		<< setw(10) << "Month" << "|"
+		<< resetiosflags(ios::left)
+		<< setiosflags(ios::right)
+		<< setw(10) << "Income" << "|"
+		<< resetiosflags(ios::right) << endl;
+
+	cout << divider << endl;
+
+	for (int i = 0; i < 12; ++i) {
+		cout << setiosflags(ios::left)
+			<< setw(10) << i + 1 << "|"
+			<< resetiosflags(ios::left)
+			<< setiosflags(ios::right)
+			<< setw(10) << data[i] << "|"
+			<< resetiosflags(ios::right) << endl;
+	}
+	cout << divider << endl;
+	return 1;
+}

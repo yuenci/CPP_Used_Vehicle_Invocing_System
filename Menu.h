@@ -224,18 +224,20 @@ string Menu::serach_vehicle_page() {
 	map<int, string> opts({
 		{1,"Price"},
 		{2,"Mileage"},
-		{3,"Doors"}
+		{3,"Doors"},
+		{4,"Quit"}
 	});
 
 	cout << "Choose a filter: " << endl;
 	cout << "1. Price" << endl;
 	cout << "2. Mileage" << endl;
 	cout << "3. Doors" << endl;
+	cout << "4. Quit" << endl;
 	while (true)
 	{
 		cout << ">";
 		cin >> input;
-		int res = Menu::valid(input, 3);
+		int res = Menu::valid(input, 4);
 		if (res != -1) {
 			//cout << "You choose: " << res;
 			return opts[res];

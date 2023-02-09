@@ -2,6 +2,7 @@
 #include <windows.h>
 #include "Form.h"
 #include "Console.h"
+#include "Number.h"
 //#include "DateTime.h"
 #define SLEEP_TIME 2000
 
@@ -30,14 +31,15 @@ void produce_report();
 void logout();
 
 void run() {
-	//go_to_main_menu();
+	go_to_main_menu();
 	//go_to_saleperson_menu();
 	//serach_vehicle();
 	//showForm();
 	//create_sale_invoice();
 	//create_bill_receipt();
 	//book_vehicle();
-	manage_clinets();
+	//manage_clinets();
+	//produce_report();
 }
 
 void go_to_main_menu() {
@@ -84,6 +86,7 @@ void go_to_second_menu() {
 
 void go_to_manager_menu() {
 	int opt =  Menu::manager_menu();
+	system("cls");
 	if (opt == 1) {
 		serach_vehicle();
 	}
@@ -113,8 +116,8 @@ void go_to_saleperson_menu(){
 	else if (opt == 3) {
 		create_bill_receipt();
 	}
-	else if (opt == 4) {
-		produce_report();
+	else if (opt ==4) {
+		book_vehicle();
 	}
 	else if (opt == 5) {
 		manage_clinets();
@@ -126,6 +129,9 @@ void go_to_saleperson_menu(){
 
 void serach_vehicle() {
 	string opt = Menu::serach_vehicle_page();
+	if (opt == "Quit") {
+		go_to_second_menu();
+	}
 	string cond = "";
 	cout << "Enter condition(>=1):" << endl << ">";
 	cin >> cond;
@@ -153,13 +159,13 @@ void serach_vehicle() {
 	}
 	int back_opt = Menu::back_to_previous_page();
 	if (back_opt == 1) {
-		system("cls");
 		go_to_second_menu();
 	};
 }
 
 string get_car_price_form_id(int id) {
 	vector<string> car = get_line("carlist.csv",id-1);
+	//cout << id<< "-" << car[1] << endl;
 	return car[1];
 }
 
@@ -263,7 +269,26 @@ void manage_clinets()
 
 void produce_report()
 {
-	
+	vector<vector<string>> data = read_csv_2D("trade.csv");
+	map<string, float > sale_data = map<string, float >({
+			{"01",0}, {"02",0}, {"03",0}, {"04",0}, {"05",0}, {"06",0}, {"07",0}, {"08",0}, {"09",0}, {"10",0}, {"11",0}, {"12",0}
+		});
+	for (int i = 0; i < data.size(); i++) {
+		if (data[i][2] == "finished") {
+			string month = data[i][4].substr(5, 2);
+			int price = convert_currency_str_to_float(get_car_price_form_id(stoi(data[i][1])));
+			sale_data[month] += price;
+		}
+	}
+	vector<float> sale_data_vec = vector<float>(
+		{ sale_data["01"],sale_data["02"],sale_data["03"],sale_data["04"],sale_data["05"],sale_data["06"],
+		sale_data["07"],sale_data["08"],sale_data["09"],sale_data["10"],sale_data["11"],sale_data["12"] }
+		);
+	show_sale_report(sale_data_vec);
+	int back_opt = Menu::back_to_previous_page();
+	if (back_opt == 1) {
+		go_to_second_menu();
+	}
 }
 
 void logout() {
