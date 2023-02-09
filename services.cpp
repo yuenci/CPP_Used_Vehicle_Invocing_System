@@ -1,5 +1,6 @@
 #include "Menu.h"
 #include <windows.h>
+#include "Form.h"
 
 
 //Menu::main_menu();
@@ -28,7 +29,9 @@ void logout();
 
 void run() {
 	//go_to_main_menu();
-	go_to_saleperson_menu();
+	//go_to_saleperson_menu();
+	serach_vehicle();
+	//showForm();
 }
 
 void go_to_main_menu() {
@@ -117,23 +120,35 @@ void go_to_saleperson_menu(){
 void serach_vehicle() {
 	string opt = Menu::serach_vehicle_page();
 	string cond = "";
-	cout << "Enter condition(>1):" << endl << ">";
+	cout << "Enter condition(>=1):" << endl << ">";
 	cin >> cond;
 
-	//cout << cond.substr(0, 1) << endl;
+	vector<int> res;
+	if (cond.at(1) == '=') {
+		string condition[] = { opt, cond.substr(0, 2), cond.substr(2) };
+		res = query("carlist.csv", condition);
+	}
+	else {
+		string condition[] = { opt, cond.substr(0, 1), cond.substr(1) };
+		res = query("carlist.csv", condition);
+	}
 
-	string condition[] = { opt, cond.substr(0, 1), cond.substr(1)};
-	vector<int> res = query("carlist.csv", condition);
+	
 	
 	if (res.size() == 0) {
 		cout << "No result found" << endl;
+		//system("cls");
+		serach_vehicle();
 	}
 	else {
 		cout << "Result found:" << endl;
-		for (int i = 0; i < res.size(); i++) {
-			cout << res[i] << endl;
-		}
+		showForm(data_process(res));
 	}
+	int back_opt = Menu::back_to_previous_page();
+	if (back_opt == 1) {
+		system("cls");
+		go_to_saleperson_menu();
+	};
 }
 
 void create_sale_invoice() {

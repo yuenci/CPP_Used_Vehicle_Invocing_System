@@ -16,6 +16,7 @@ public:static int main_menu();
 	  static int about_page();
 	  static int login_page();
 	  static string serach_vehicle_page();
+	  static int back_to_previous_page();
 };
 
 /// <summary>
@@ -239,4 +240,22 @@ string Menu::serach_vehicle_page() {
 			cout << "Invalid Input" << endl;
 		}
 	}
+}
+
+int Menu::back_to_previous_page() {
+	string input = "";
+	cout << "Press 1 to back to previous page..." << endl;
+	while (true)
+	{
+		cout << ">";
+		cin >> input;
+		int res = Menu::valid(input, 1);
+		if (res != -1) {
+			return res;
+		}
+		else {
+			cout << "Invalid Input" << endl;
+		}
+	}
+	return 1;
 }

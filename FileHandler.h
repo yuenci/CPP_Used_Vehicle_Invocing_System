@@ -246,7 +246,7 @@ double toFloat(const string& s) {
 
 vector<int> query(const string& filename, string condition[]) {
 	// string condition[] = { "Price", "==", "2250" };
-	//cout << condition[0] << " " << condition[1] << " " << condition[2] << endl;
+	cout << condition[0] << " " << condition[1] << " " << condition[2] << endl;
 	vector<vector<string>> data = read_csv_2D(filename);
 	vector<int> res;
 	int col_num = get_col_num(filename, condition[0]);
@@ -257,6 +257,7 @@ vector<int> query(const string& filename, string condition[]) {
 	{
 		string value = data[i][col_num];
 		if (condition[1] == "==") {
+			//cout << value << " " << condition[2] << endl;
 			if (value == condition[2]) {
 				res.push_back(i);
 			}
