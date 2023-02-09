@@ -285,7 +285,7 @@ vector<string> Menu::sale_invoice_page() {
 	}
 	
 	int id = get_lines_num("trade.csv");
-	string trade_id = zfill(id, 7);
+	string trade_id = zfill(id, 8);
 	
 	string time = get_now();
 	

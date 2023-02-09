@@ -35,7 +35,8 @@ void run() {
 	//serach_vehicle();
 	//showForm();
 	//create_sale_invoice();
-	create_bill_receipt();
+	//create_bill_receipt();
+	book_vehicle();
 }
 
 void go_to_main_menu() {
@@ -215,7 +216,32 @@ void create_bill_receipt()
 }
 
 void book_vehicle() {
-	
+	vector<string> res = Menu::sale_invoice_page();
+	string car_id = zfill(res[1], 5);
+	string condition[] = { "car_id","==",car_id };
+	vector<int> query_res = query("trade.csv", condition);
+	if (query_res.size() != 0) {
+		Console::warning("Car already sold");
+		Sleep(SLEEP_TIME);
+		go_to_second_menu();
+	}
+	else {
+		int trade_num = get_lines_num("trade.csv") + 1;
+		int car_num = get_lines_num("carlist.csv") ;
+		string trade_num_str = zfill(trade_num,8);
+		vector<string> newline = vector<string>({
+			 trade_num_str,zfill(res[1],5),
+			 "booking",StatusContainer::current_user.username,res[2]
+			});
+		if (car_num>= stoi(res[1])) {
+			append_line("trade.csv", newline);
+			Console::success("Booking success!");
+		}
+		int back_opt = Menu::back_to_previous_page();
+		if (back_opt == 1) {
+			go_to_second_menu();
+		}
+	}
 }
 
 void manage_clinets()
