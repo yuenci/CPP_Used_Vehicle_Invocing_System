@@ -1,6 +1,7 @@
 #include "Menu.h"
 #include <windows.h>
 #include "Form.h"
+#include "DateTime.h"
 
 
 //Menu::main_menu();
@@ -30,8 +31,9 @@ void logout();
 void run() {
 	//go_to_main_menu();
 	//go_to_saleperson_menu();
-	serach_vehicle();
+	//serach_vehicle();
 	//showForm();
+	create_sale_invoice();
 }
 
 void go_to_main_menu() {
@@ -152,7 +154,7 @@ void serach_vehicle() {
 }
 
 void create_sale_invoice() {
-	
+	cout << get_now() << endl;
 }
 
 void create_bill_receipt()
