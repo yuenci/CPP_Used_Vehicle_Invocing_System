@@ -78,23 +78,23 @@ void get_col_num_test() {
 
 void append_csv_test() {
 	vector<string> data = { "1", "2", "3" };
-	bool res = append_csv("carlist.csv", data);
+	bool res = append_line("carlist.csv", data);
 	cout << res;
 }
 
 void  update_csv_test() {
 	vector<string> data = { "1", "2", "3" };
-	bool res = update_csv("carlist.csv", data, 0);
+	bool res = update_line("carlist.csv", data, 0);
 	cout << res;
 }
 
 void write_cell_test() {
-	bool res = write_cell("carlist.csv", "666", 0, 0);
+	bool res = update_cell("carlist.csv", "666", 0, 0);
 	cout << res;
 }
 
 void delete_csv_test() {
-	bool res = delete_csv("carlist.csv", 0);
+	bool res = delete_line("carlist.csv", 0);
 	cout << res;
 }
 

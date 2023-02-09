@@ -140,7 +140,7 @@ string get_cell(const string& filename, int line, int col) {
 
 /* Write */
 
-bool append_csv(const string& filename, vector<string> data) {
+bool append_line(const string& filename, vector<string> data) {
 	ofstream file(filename, ios::app | ios::binary);
 	file.imbue(locale(file.getloc(), new codecvt_utf8<char>));
 	if (file.is_open()) {
@@ -154,7 +154,7 @@ bool append_csv(const string& filename, vector<string> data) {
 }
 
 // private
-bool write_csv(const string& filename, const vector<string>& data) {
+bool write_line(const string& filename, const vector<string>& data) {
 	ofstream file(filename, ios::binary);
 	//file.imbue(locale(file.getloc(), new codecvt_utf8<char>));
 	if (file.is_open()) {
@@ -169,7 +169,7 @@ bool write_csv(const string& filename, const vector<string>& data) {
 	}
 }
 
-bool write_cell(const string& filename, string value, int line, int row)
+bool update_cell(const string& filename, string value, int line, int row)
 {
 	line += 1;
 	vector<string> lines = read_csv(filename, true);
@@ -182,27 +182,27 @@ bool write_cell(const string& filename, string value, int line, int row)
 	}
 	data[row] = value;
 	lines[line] = join_vector_to_string(data);
-	return write_csv(filename, lines);
+	return write_line(filename, lines);
 }
 
-bool update_csv(const string& filename, vector<string> data, int line) {
+bool update_line(const string& filename, vector<string> data, int line) {
 	line += 1;
 	vector<string> lines = read_csv(filename,true);
 	if (line < 0 || line >= lines.size()) {
 		return false;
 	}
 	lines[line] = join_vector_to_string(data);
-	return write_csv(filename, lines);
+	return write_line(filename, lines);
 }
 
-bool delete_csv(const string& filename, int line, int range =1 ) {
+bool delete_line(const string& filename, int line, int range =1 ) {
 	line += 1;
 	vector<string> lines = read_csv(filename, true);
 	if (line < 0 || line >= lines.size()) {
 		return false;
 	}
 	lines.erase(lines.begin() + line, lines.begin() + line + range);
-	return write_csv(filename, lines);
+	return write_line(filename, lines);
 }
 
 /* sort */

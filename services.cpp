@@ -34,7 +34,8 @@ void run() {
 	//go_to_saleperson_menu();
 	//serach_vehicle();
 	//showForm();
-	create_sale_invoice();
+	//create_sale_invoice();
+	create_bill_receipt();
 }
 
 void go_to_main_menu() {
@@ -164,7 +165,6 @@ string get_car_price_form_id(int id) {
 
 void create_sale_invoice() {
 	vector<string> res = Menu::sale_invoice_page();
-
 	string car_id = zfill(res[1],5);
 	string condition[] = { "car_id","==",car_id };
 	vector<int> query_res = query("trade.csv", condition);
@@ -177,7 +177,7 @@ void create_sale_invoice() {
 		string price = get_car_price_form_id(stoi(res[1]));
 		vector<string> car = get_line("trade.csv", query_res[0]);
 		vector<string> data = vector<string>({
-		car[0],car[2],res[2],"66665"
+		car[0],car[2],res[2],price
 		});
 		show_invoice(data);
 		int back_opt =  Menu::back_to_previous_page();
@@ -190,7 +190,28 @@ void create_sale_invoice() {
 
 void create_bill_receipt()
 {
-	
+	vector<string> res = Menu::sale_invoice_page();
+	string car_id = zfill(res[1], 5);
+	string condition[] = { "car_id","==",car_id };
+	vector<int> query_res = query("trade.csv", condition);
+	if (query_res.size() == 0) {
+		Console::warning("Car not found");
+		Sleep(SLEEP_TIME);
+		go_to_second_menu();
+	}
+	else {
+		string price = get_car_price_form_id(stoi(res[1]));
+		vector<string> car = get_line("trade.csv", query_res[0]);
+		vector<string> data = vector<string>({
+		car[0],car[2],res[2],price
+			});
+		show_invoice(data,"receipt");
+		update_cell("trade.csv", "finished", query_res[0], 2);
+		int back_opt = Menu::back_to_previous_page();
+		if (back_opt == 1) {
+			go_to_second_menu();
+		}
+	}
 }
 
 void book_vehicle() {
