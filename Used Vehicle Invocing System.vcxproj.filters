@@ -53,6 +53,12 @@
     <ClInclude Include="DateTime.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="String.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Console.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Used Vehicle Invocing System.rc">
@@ -67,6 +73,9 @@
       <Filter>资源文件</Filter>
     </None>
     <None Include="users.csv">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="trade.csv">
       <Filter>资源文件</Filter>
     </None>
   </ItemGroup>

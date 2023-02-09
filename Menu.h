@@ -4,6 +4,9 @@
 #include <map>
 #include "Authentication.h"
 #include "StatusContainer.h"
+#include "DateTime.h"
+#include "String.h"
+#include "Console.h"
 
 using namespace std;
 
@@ -17,6 +20,7 @@ public:static int main_menu();
 	  static int login_page();
 	  static string serach_vehicle_page();
 	  static int back_to_previous_page();
+	  static vector<string> sale_invoice_page();
 };
 
 /// <summary>
@@ -71,7 +75,7 @@ int Menu::main_menu() {
 			return res;
 		}
 		else {
-			cout << "Invalid Input" << endl;
+			Console::warning("Incorrect input, please try again");
 		}
 	}
 }
@@ -103,7 +107,7 @@ int Menu::saleperson_menu() {
 			return res;
 		}
 		else {
-			cout << "Invalid Input" << endl;
+			Console::warning("Incorrect input, please try again");
 		}
 	}
 }
@@ -134,7 +138,7 @@ int Menu::manager_menu() {
 			return res;
 		}
 		else {
-			cout << "Invalid Input" << endl;
+			Console::warning("Incorrect input, please try again");
 		}
 	}
 }
@@ -162,7 +166,7 @@ int Menu::about_page() {
 			return res;
 		}
 		else {
-			cout << "Invalid Input" << endl;
+			Console::warning("Incorrect input, please try again");
 		}
 	}
 }
@@ -180,7 +184,7 @@ int Menu::login_page() {
 			break;
 		}
 		else {
-			cout << "Invalid input";
+			Console::warning("Incorrect input, please try again");
 		}
 	}
 	
@@ -193,7 +197,7 @@ int Menu::login_page() {
 			break;
 		}
 		else {
-			cout << "Invalid input";
+			Console::warning("Incorrect input, please try again");
 		}
 	}
 	int login_code = login(username, password);
@@ -237,7 +241,7 @@ string Menu::serach_vehicle_page() {
 			return opts[res];
 		}
 		else {
-			cout << "Invalid Input" << endl;
+			Console::warning("Incorrect input, please try again");
 		}
 	}
 }
@@ -254,8 +258,36 @@ int Menu::back_to_previous_page() {
 			return res;
 		}
 		else {
-			cout << "Invalid Input" << endl;
+			Console::warning("Incorrect input, please try again");
 		}
 	}
 	return 1;
+}
+
+vector<string> Menu::sale_invoice_page() {
+	
+	cout << "Enter the vehicle ID: " << endl;
+	string input;
+	int vehicle_id;
+
+	while (true) {
+		cout << ">";
+		std::getline(std::cin, input);
+		std::stringstream ss(input);
+
+		if (ss >> vehicle_id) {
+			break;
+		}
+		else {
+			std::cout << "Invalid value" << std::endl;
+			ss.clear();
+		}
+	}
+	
+	int id = get_lines_num("trade.csv");
+	string trade_id = zfill(id, 7);
+	
+	string time = get_now();
+	
+	return vector<string>({ trade_id, input,time });
 }

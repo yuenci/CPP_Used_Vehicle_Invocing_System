@@ -7,10 +7,10 @@ using namespace std;
 
 class User {
 public:
-	string username;
-	string role = "unknown";
-	string password;
-	string phone = "";
+	string username = "unknown";
+	string role = "saleperson";
+	string password = "unknown";
+	string phone =  "unknown";
 	int login_status;
 	User(string username, string password);
 	void init_user();

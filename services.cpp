@@ -1,8 +1,9 @@
 #include "Menu.h"
 #include <windows.h>
 #include "Form.h"
-#include "DateTime.h"
-
+#include "Console.h"
+//#include "DateTime.h"
+#define SLEEP_TIME 2000
 
 //Menu::main_menu();
 //Menu::manager_menu();
@@ -46,7 +47,7 @@ void go_to_main_menu() {
 			go_to_second_menu();
 		}
 		else {
-			Sleep(2000);
+			Sleep(SLEEP_TIME);
 			system("cls");
 			go_to_main_menu();
 		}
@@ -138,23 +139,46 @@ void serach_vehicle() {
 	
 	
 	if (res.size() == 0) {
-		cout << "No result found" << endl;
+		Console::warning("No result found");
 		//system("cls");
 		serach_vehicle();
 	}
 	else {
-		cout << "Result found:" << endl;
+		Console::success("Result found:");
 		showForm(data_process(res));
 	}
 	int back_opt = Menu::back_to_previous_page();
 	if (back_opt == 1) {
 		system("cls");
-		go_to_saleperson_menu();
+		go_to_second_menu();
 	};
 }
 
+
+
+
 void create_sale_invoice() {
-	cout << get_now() << endl;
+	//cout << get_now() << endl;
+	//vector<string> res = Menu::sale_invoice_page();
+
+	vector<string> data = vector<string>({
+		"00000001","00001","2023-02-09 18:53:53","66665"
+		});
+	show_invoice(data);
+
+	/*string car_id = res[1];
+	string condition[] = { "car_id","==",car_id };
+	vector<int> query_res = query("trade.csv", condition);
+	if (query_res.size() ==0) {
+		Console::warning("Car not found");
+		Sleep(SLEEP_TIME);
+		system("cls");
+		go_to_second_menu();
+	}
+	else {
+
+	}*/
+	
 }
 
 void create_bill_receipt()

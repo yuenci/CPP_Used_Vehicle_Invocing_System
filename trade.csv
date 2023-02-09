@@ -1,2 +1,4 @@
-id,card_id,status,staff,time
-00000001,1,booking,innis1
+id,car_id,status,staff,time
+00000001,00001,booking,innis1,2023-02-09 18:53:27
+00000002,00002,booking,innis2,2023-02-09 18:53:30
+00000003,00003,booking,innis3,2023-02-09 18:53:53

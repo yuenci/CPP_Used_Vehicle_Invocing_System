@@ -5,46 +5,97 @@
 
 using namespace std;
 
+vector<vector<string>> data_process(vector<int> data) {
+    vector<vector<string>> cars = read_csv_2D("carlist.csv");
+    vector<vector<string>> result;
+    for (int i = 0; i < data.size(); ++i) {
+        int car_name_length = cars[data[i]][0].length();
+        int car_url = cars[data[i]][10].length();
+        if (car_name_length > 30) {
+            cars[data[i]][0] = cars[data[i]][0].substr(0, 30);
+        }
+        if (car_url > 30) {
+            cars[data[i]][10] = cars[data[i]][10].substr(0, 30);
+        }
+        result.push_back(cars[data[i]]);
+    }
+    return result;
+}
+
 int showForm(vector<vector<string>> data) {
-    cout << "------------------------------------------------------------------------" << endl;
+	string divider = "------------------------------------------------------------------------";
     
-    cout << setiosflags(ios::left) << setw(30) << "Title"  << "|" << resetiosflags(ios::left)
-        << setiosflags(ios::right) << setw(9) << "Price" << "|" << setw(18) <<"Registration Date" << "|"
-        << setiosflags(ios::right) << setw(9) << "Mileage" << "|" << setw(10) << "Fuel Type" << "|"
-        << setiosflags(ios::right) << setw(12) <<"Transmission" << "|" << setw(12) << "Engine Size" << "|"
-        << setiosflags(ios::right) << setw(5) << "Doors" << "|" << setw(15) << "Colour" << "|"
-        << setiosflags(ios::right) << setw(10) << "Hatchback" << "|" << setw(30) << "URL" << "|"
-        << resetiosflags(ios::right) << setw(12) << "Sale Date" << "|" << endl;
+    cout << divider << endl;
     
-    cout << "------------------------------------------------------------------------" << endl;
+    cout << setiosflags(ios::left) 
+        << setw(30) << "Title"  << "|" 
+        << resetiosflags(ios::left)
+        << setiosflags(ios::right) 
+        << setw(9) << "Price" << "|" 
+        << setw(18) <<"Registration Date" << "|"
+        << setw(9) << "Mileage" << "|" 
+        << setw(10) << "Fuel Type" << "|"
+        << setw(12) <<"Transmission" << "|" 
+        << setw(12) << "Engine Size" << "|"
+        << setw(5) << "Doors" << "|" 
+        << setw(15) << "Colour" << "|"
+        << setw(10) << "Hatchback" << "|" 
+        << setw(30) << "URL" << "|"
+        << setw(12) << "Sale Date" << "|"
+        << resetiosflags(ios::right)  << endl;
+    
+    cout << divider << endl;
 
     for (int i = 0; i < 5; ++i) {
-        cout << setiosflags(ios::left) << setw(30) << data[i][0] << "|" << resetiosflags(ios::left)
-            << setiosflags(ios::right) << setw(9) << data[i][1] << "|" << setw(18) << data[i][2] << "|"
-            << setiosflags(ios::right) << setw(9) << data[i][3] << "|" << setw(10) << data[i][4] << "|"
-            << setiosflags(ios::right) << setw(12) << data[i][5] << "|" << setw(12) << data[i][6] << "|"
-            << setiosflags(ios::right) << setw(5) << data[i][7] << "|" << setw(15) << data[i][8] << "|"
-            << setiosflags(ios::right) << setw(10) << data[i][9] << "|" << setw(30) << data[i][10] << "|"
-            << resetiosflags(ios::right) << setw(12) << data[i][11] << "|" << endl;
+        cout << setiosflags(ios::left)
+            << setw(30) << data[i][0] << "|"
+            << resetiosflags(ios::left)
+            << setiosflags(ios::right)
+            << setw(9) << data[i][1] << "|"
+            << setw(18) << data[i][2] << "|"
+            << setw(9) << data[i][3] << "|"
+            << setw(10) << data[i][4] << "|"
+            << setw(12) << data[i][5] << "|"
+            << setw(12) << data[i][6] << "|"
+            << setw(5) << data[i][7] << "|"
+            << setw(15) << data[i][8] << "|"
+            << setw(10) << data[i][9] << "|"
+            << setw(30) << data[i][10] << "|"
+            << setw(12) << data[i][11] << "|"
+            << resetiosflags(ios::right) << endl;
     }
-    cout << "------------------------------------------------------------------------" << endl;
+    cout << divider << endl;
     return 1;
 }
 
 
-vector<vector<string>> data_process(vector<int> data) {
-	vector<vector<string>> cars = read_csv_2D("carlist.csv");
-	vector<vector<string>> result;
-	for (int i = 0; i < data.size(); ++i) {
-		int car_name_length = cars[data[i]][0].length();
-		int car_url = cars[data[i]][10].length();
-        if (car_name_length > 30) {
-            cars[data[i]][0] = cars[data[i]][0].substr(0, 30);
-        }
-		if (car_url > 30) {
-			cars[data[i]][10] = cars[data[i]][10].substr(0, 30);
-		}
-		result.push_back(cars[data[i]]);
-	}
-	return result;
+int show_invoice(vector<string> data) {
+    string divider = "";
+    for (int i = 0; i < 61; i++)
+    {
+        divider += "-";
+    }
+
+   
+    cout << divider << endl;
+    cout << setiosflags(ios::left) 
+        << setw(12) << "Invoice ID" << "|" 
+        << resetiosflags(ios::left)
+        << setiosflags(ios::right) 
+        << setw(10) << "car ID" << "|" 
+        << setw(25) << "Booking Time" << "|"
+        << setw(10) << "Price" << "|"  
+        << resetiosflags(ios::right) << endl;
+    
+    cout << divider << endl;
+    cout << setiosflags(ios::left)
+        << setw(12) << data[0] << "|"
+        << resetiosflags(ios::left)
+        << setiosflags(ios::right)
+        << setw(10) << data[1] << "|"
+        << setw(25) << data[2] << "|"
+        << setw(10) << data[3] << "|"
+        << resetiosflags(ios::right) << endl;
+    cout << divider << endl;
+    return 1;
 }
