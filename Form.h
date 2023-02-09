@@ -2,6 +2,7 @@
 #include <iostream>
 #include <iomanip>
 #include "FileHandler.h"
+#define SIGN "-"
 
 using namespace std;
 
@@ -23,7 +24,12 @@ vector<vector<string>> data_process(vector<int> data) {
 }
 
 int showForm(vector<vector<string>> data) {
-	string divider = "------------------------------------------------------------------------";
+    int len = 184;
+	string divider = "";
+    for (int i = 0; i < len; i++)
+    {
+		divider += SIGN;
+    }
     
     cout << divider << endl;
     
@@ -70,13 +76,13 @@ int showForm(vector<vector<string>> data) {
 
 
 int show_invoice(vector<string> data) {
+    int len = 61;
     string divider = "";
-    for (int i = 0; i < 61; i++)
+    for (int i = 0; i < len; i++)
     {
-        divider += "-";
+        divider += SIGN;
     }
 
-   
     cout << divider << endl;
     cout << setiosflags(ios::left) 
         << setw(12) << "Invoice ID" << "|" 

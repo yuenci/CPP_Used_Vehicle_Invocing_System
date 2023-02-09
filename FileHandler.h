@@ -120,8 +120,8 @@ vector<vector<string>> get_lines( const string& filename, int start, int range )
 	return get_data(filename, start, range, 0, get_cols_num(filename));
 }
 
-vector<vector<string>> get_line(const string& filename, int line) {
-	return get_data(filename, line, 1, 0, get_cols_num(filename));
+vector<string> get_line(const string& filename, int line) {
+	return get_data(filename, line, 1, 0, get_cols_num(filename))[0];
 }
 
 vector<vector<string>> get_cols( const string& filename, int start, int range ) 
@@ -129,8 +129,8 @@ vector<vector<string>> get_cols( const string& filename, int start, int range )
 	return get_data(filename, 0, get_lines_num(filename), start, range);
 }
 
-vector<vector<string>> get_col(const string& filename, int col) {
-	return get_data(filename, 0, get_lines_num(filename), col, 1);
+vector<string> get_col(const string& filename, int col) {
+	return get_data(filename, 0, get_lines_num(filename), col, 1)[0];
 }
 
 string get_cell(const string& filename, int line, int col) {

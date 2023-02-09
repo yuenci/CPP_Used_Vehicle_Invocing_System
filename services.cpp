@@ -66,6 +66,7 @@ void go_to_main_menu() {
 }
 
 void go_to_second_menu() {
+	system("cls");
 	string role = StatusContainer::current_user.role;
 	if (role == "manager") {
 		go_to_manager_menu();
@@ -154,30 +155,36 @@ void serach_vehicle() {
 	};
 }
 
+string get_car_price_form_id(int id) {
+	vector<string> car = get_line("carlist.csv",id-1);
+	return car[1];
+}
 
 
 
 void create_sale_invoice() {
-	//cout << get_now() << endl;
-	//vector<string> res = Menu::sale_invoice_page();
+	vector<string> res = Menu::sale_invoice_page();
 
-	vector<string> data = vector<string>({
-		"00000001","00001","2023-02-09 18:53:53","66665"
-		});
-	show_invoice(data);
-
-	/*string car_id = res[1];
+	string car_id = zfill(res[1],5);
 	string condition[] = { "car_id","==",car_id };
 	vector<int> query_res = query("trade.csv", condition);
 	if (query_res.size() ==0) {
 		Console::warning("Car not found");
 		Sleep(SLEEP_TIME);
-		system("cls");
 		go_to_second_menu();
 	}
 	else {
-
-	}*/
+		string price = get_car_price_form_id(stoi(res[1]));
+		vector<string> car = get_line("trade.csv", query_res[0]);
+		vector<string> data = vector<string>({
+		car[0],car[2],res[2],"66665"
+		});
+		show_invoice(data);
+		int back_opt =  Menu::back_to_previous_page();
+		if (back_opt ==1) {
+			go_to_second_menu();
+		}
+	}
 	
 }
 
